@@ -21,7 +21,7 @@ public class Map {
 	private static final int BLOCKED = 1;
         
         private BufferedImage tileset;
-        private BufferedImage[] textures = new BufferedImage[9];
+        private BufferedImage[] textures = new BufferedImage[10];
         	
 	private static final int WIDTH = 20;
 	private static final int HEIGHT = 15;
@@ -56,6 +56,7 @@ public class Map {
             textures[6] = tileset.getSubimage(64,64,TILE_SIZE,TILE_SIZE); // Wall SE
             textures[7] = tileset.getSubimage(96,64,TILE_SIZE,TILE_SIZE); // Wall SW
             textures[8] = tileset.getSubimage(32,32,TILE_SIZE,TILE_SIZE); // Tiles Light
+            textures[9] = tileset.getSubimage(0,32,TILE_SIZE,TILE_SIZE); // Tiles Broken
             
             // Map Creation --------------------------------
             
@@ -87,7 +88,16 @@ public class Map {
             layoutMap[13][10] = CLEAR;
             layoutMap[14][10] = CLEAR;
             layoutMap[15][10] = CLEAR;
-                       
+            layoutMap[19][12] = CLEAR;
+            layoutMap[4][1] = BLOCKED;
+            layoutMap[5][10] = BLOCKED;
+            layoutMap[6][10] = BLOCKED;
+            layoutMap[7][10] = BLOCKED;
+            layoutMap[8][10] = BLOCKED;
+
+            assignSquare(layoutMap,17,1,2,1,BLOCKED);    
+            assignSquare(layoutMap,11,1,2,1,BLOCKED);    
+            
             for (int y=0;y<HEIGHT;y++) {
                     textureMap[0][y] = 2;
                     textureMap[1][y] = 1;
@@ -134,12 +144,14 @@ public class Map {
             textureMap[10][11] = 1;
             textureMap[10][12] = 1;
             textureMap[10][13] = 1;
+            textureMap[19][12] = 1;
             textureMap[WIDTH-1][10] = 2;
             textureMap[3][10] = 7;
             textureMap[0][0] = 5;
             textureMap[0][HEIGHT-1] = 7;
             textureMap[WIDTH-1][0] = 4;
             textureMap[WIDTH-1][HEIGHT-1] = 6;
+            textureMap[8][2] = 9;
             
             assignSquare(textureMap,11,1,8,9,0);
             

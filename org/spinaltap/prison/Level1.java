@@ -16,7 +16,7 @@ import java.awt.image.BufferedImage;
  * 
  * @author Tyler Snowden
  */
-public class Game extends Canvas implements KeyListener {
+public class Level1 extends Canvas implements KeyListener {
 	
 	private BufferStrategy strategy; // The buffered strategy used for accelerated rendering
 	
@@ -28,11 +28,14 @@ public class Game extends Canvas implements KeyListener {
 
 	private Map map;
 	private Entity player;
+        private Entity[] extras = new Entity[2];
+        
+        private Item[] items = new Item[9];
 	
 	/**
 	 * Create the simple game - this also starts the game loop
 	 */
-	public Game() {
+	public Level1() {
 		Frame frame = new Frame("Prison Break");
 		frame.setLayout(null);
 		setBounds(0,0,800,600);
@@ -59,8 +62,19 @@ public class Game extends Canvas implements KeyListener {
 		
 		// Game Objects
 		map = new Map();
-		player = new Entity("tyler", map, 6f, 6f, 34, 46, 9);
-		
+                player = new Entity("tyler", map, 6f, 6f, 34, 46, 9);
+                extras[0] = new Entity("kristie", map, 14f, 3f, 34, 46, 9);
+                extras[1] = new Entity("daniel", map, 16f, 3f, 34, 46, 9);
+                items[0] = new Item("table", map, 211,111,64,62,17,1);
+                items[1] = new Item("table", map, 211,111,64,62,11,1);
+                items[2] = new Item("toilet", map, 0,0,32,50,4,1);
+                items[3] = new Item("rug", map, 3,178,85,57,14,6);
+                items[4] = new Item("plant", map, 138,184,27,46,11,8);
+                items[5] = new Item("bars", map, 238,275,32,32,5,10);
+                items[6] = new Item("bars", map, 238,275,32,32,6,10);
+                items[7] = new Item("bars", map, 238,275,32,32,7,10);
+                items[8] = new Item("bars", map, 238,275,32,32,8,10);
+                
 		// Start Game
 		gameLoop();
 	}
@@ -82,8 +96,10 @@ public class Game extends Canvas implements KeyListener {
 			// Render Objects
 			g.translate(30,50);
 			map.paint(g);
+                        for (int i=0; i<items.length;i++) items[i].paint(g);
+                        for (int i=0; i<extras.length;i++) extras[i].paint(g);
 			player.paint(g);
-			
+                        
 			// Clear the Buffer
 			g.dispose();
 			strategy.show();
@@ -152,6 +168,6 @@ public class Game extends Canvas implements KeyListener {
 	 * @param argv
 	 */
 	public static void main(String[] argv) {
-		new Game();
+		new Level1();
 	}
 }
