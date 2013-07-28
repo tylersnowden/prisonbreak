@@ -1,47 +1,41 @@
 package org.spinaltap.prison;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
 
 /**
- * A single entity moving round our map. It maintains its position 
- * in terms of grid cells. Note that the positions are floating 
- * point numbers allowing us to be partially across a cell.
+ * A single Character that moves and animates via sprites.
  * 
- * @author Kevin Glass
+ * @author Tyler Snowden
  */
 public class Entity {
-	/** The x position of this entity in terms of grid cells */
-	private float x;
-	/** The y position of this entity in terms of grid cells */
-	private float y;
-	/** The image to draw for this entity */
-	private BufferedImage image;
-	/** The map which this entity is wandering around */
-	private Map map;
-	/** The angle to draw this entity at */
-        private float boundHeight = .6f;
-        private float boundWidth = .4f;
+	private float x; // Initial X Position
+	private float y; // Initial Y Position
+	private BufferedImage image; // Sprite Sheet
+	private Map map; // Map pertaining to character
+        private float boundHeight = .6f; // Boundary Box Height
+        private float boundWidth = .4f; // Boundary Box Width
         
-        private int width;
-        private int height;
+        private int width; // Width of character's single sprite
+        private int height; // Height of character's single sprite
         
-        private BufferedImage[] frames;
-        private int currentFrame;
-        private long timer = 0;
+        private BufferedImage[] frames; // Individual Images ripped from Sprite Sheet
+        private int currentFrame; // Current Sprite
+        private long timer = 0; // Sprite Animation Timing
 	
 	/**
-	 * Create a new entity in the game
+	 * Create a new entity in the game. 
 	 * 
-	 * @param image The image to represent this entity (needs to be 32x32)
-	 * @param map The map this entity is going to wander around
+	 * @param name Used to name character and specify sprite sheet
+	 * @param map Passed from game
 	 * @param x The initial x position of this entity in grid cells
 	 * @param y The initial y position of this entity in grid cells
+         * @param width Width of character's single sprite
+         * @param height Height of character's single sprite
+         * @param currentFrame Starting frame from Sprite Sheet
 	 */
 	public Entity(String name, Map map, float x, float y, int width, int height, int currentFrame) {
                 this.currentFrame = currentFrame;
@@ -53,7 +47,7 @@ public class Entity {
                 this.width = width;
                 this.height = height;
                 
-                try {
+                try { // Get Sprite Sheet
 			URL url = Thread.currentThread().getContextClassLoader().getResource("res/"+name+".png");
 			if (url == null) {
 				System.err.println("Unable to find sprite: res/"+name+".png");
@@ -65,35 +59,31 @@ public class Entity {
 			System.exit(0);
 		}
                 
-                createFrames(4,4);
+                createFrames(4,4); // Split up Sprite Sheet
 	}
 	
 	/**
-	 * Move this entity a given amount. This may or may not succeed depending
-	 * on collisions
+	 * Move this entity a given amount depending on collisions.
 	 * 
 	 * @param dx The amount to move on the x axis
 	 * @param dy The amount to move on the y axis
 	 * @return True if the move succeeded
 	 */
 	public boolean move(float dx, float dy) {
-		// work out what the new position of this entity will be
+		// New Positions
 		float nx = x + dx;
 		float ny = y + dy;
 		
-		// check if the new position of the entity collides with
-		// anything
+		// Determine Collision
 		if (validLocation(nx, ny)) {
-			// if it doesn't then change our position to the new position
+			// Assign new position
 			x = nx;
 			y = ny;
                     
 			return true;
 		}
-		
-		// if it wasn't a valid move don't do anything apart from 
-		// tell the caller
-		return false;
+
+		return false; // Do nothing
 	}
 	
 	/**
@@ -105,10 +95,6 @@ public class Entity {
 	 * @return True if the new position specified would be valid
 	 */
 	public boolean validLocation(float nx, float ny) {
-		// here we're going to check some points at the corners of
-		// the player to see whether we're at an invalid location
-		// if any of them are blocked then the location specified
-		// isn't valid
 		if (map.blocked(nx - boundWidth, ny - boundHeight)) {
 			return false;
 		}
@@ -122,9 +108,7 @@ public class Entity {
 			return false;
 		}
 		
-		// if all the points checked are unblocked then we're in an ok
-		// location
-		return true;
+		return true; // Not Blocked
 	}
 	
 	/**
@@ -133,10 +117,6 @@ public class Entity {
 	 * @param g The graphics context to which the entity should be drawn
 	 */
 	public void paint(Graphics2D g) {
-		// work out the screen position of the entity based on the
-		// x/y position and the size that tiles are being rendered at. So
-		// if we're at 1.5,1.5 and the tile size is 10 we'd render on screen 
-		// at 15,15.
 		int xp = (int) (Map.TILE_SIZE * x);
 		int yp = (int) (Map.TILE_SIZE * y);
 	
@@ -195,6 +175,9 @@ public class Entity {
             }
         }
         
+        /*
+         * Return Entity to Down Idle Sprite. All this does for now.
+         */
         public void reset() {
             currentFrame = 9;
         }
