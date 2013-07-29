@@ -1,6 +1,7 @@
 package org.spinaltap.prison;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import static org.spinaltap.prison.Map.TILE_SIZE;
 
@@ -27,7 +28,10 @@ public class Interface {
 
         g.setColor(Color.darkGray); // Default NULL Tile
         g.fillRect(0,480,WIDTH,HEIGHT);
-
+        g.setColor(Color.white);
+        Font f = new Font("Monospaced", Font.BOLD, 12);
+        g.setFont(f);
+        g.drawString("Interface", 15, 500);
 
    }
 }

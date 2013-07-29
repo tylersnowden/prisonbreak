@@ -64,7 +64,6 @@ public class Game extends Canvas implements KeyListener {
                 if (false) {
                     
                 }
-                
 		
 		// Level 1
                 if (true) {
