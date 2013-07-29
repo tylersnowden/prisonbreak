@@ -75,7 +75,7 @@ public class Game extends Canvas implements KeyListener {
 		
 		// Level 1
                 if (true) {
-                    map = new Map("layout.dat","texture.dat",20,15);
+                    map = new Map("level1",20,15);
                     player = new Entity("tyler", map, 6f, 6f, 34, 46, 9);
                     gameLoop();
                 }

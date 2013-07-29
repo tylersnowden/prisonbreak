@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
  * @author Tyler Snowden
  */
 public class Entity {
+        private String name;
 	private float x; // Initial X Position
 	private float y; // Initial Y Position
 	private BufferedImage image; // Sprite Sheet
@@ -39,6 +40,7 @@ public class Entity {
 	 */
 	public Entity(String name, Map map, float x, float y, int width, int height, int currentFrame) {
                 this.currentFrame = currentFrame;
+                this.name = name;
 		this.image = image;
 		this.map = map;
 		this.x = x;
@@ -181,4 +183,23 @@ public class Entity {
         public void reset() {
             currentFrame = 9;
         }
+        
+        /*
+         * Converts Class Variables to String for Storage as Array
+         * Entity(String name, float x, float y, int width, int height, int currentFrame)
+         * 
+         * @return String[]
+         */
+        public String[] entityToString()
+        {
+             return new String[] { 
+                 this.name, 
+                 Float.toString(this.x), 
+                 Float.toString(this.y), 
+                 Integer.toString(this.width), 
+                 Integer.toString(this.height),
+                 Integer.toString(this.currentFrame)
+             };
+        }
+               
 }

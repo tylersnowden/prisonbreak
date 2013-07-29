@@ -25,6 +25,8 @@ public class Item {
 
     private int width; // Width of character's single sprite
     private int height; // Height of character's single sprite
+    private int anchorx;
+    private int anchory;
     
     public Item (String name, int anchorx, int anchory, int width, int height, int x, int y) {
         this.name = name;
@@ -32,6 +34,8 @@ public class Item {
         this.y = y;
         this.width = width;
         this.height = height;
+        this.anchorx = anchorx;
+        this.anchory = anchory;
 
         try { // Get Sprite Sheet
                 URL url = Thread.currentThread().getContextClassLoader().getResource("res/items.png");
@@ -50,5 +54,24 @@ public class Item {
     public void paint(Graphics2D g) {
         g.drawImage(image, null, x*TILE_SIZE, y*TILE_SIZE);
     }
+    
+    /*
+    * Converts Class Variables to String for Storage as Array
+    * Item (String name, int anchorx, int anchory, int width, int height, int x, int y)
+    * 
+    * @return String[]
+    */
+   public String[] itemToString()
+   {
+        return new String[] { 
+            this.name, 
+            Integer.toString(this.anchorx), 
+            Integer.toString(this.anchory),
+            Integer.toString(this.width), 
+            Integer.toString(this.height),
+            Integer.toString(this.x),
+            Integer.toString(this.y)
+        };
+   }
     
 }

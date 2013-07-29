@@ -30,13 +30,13 @@ public class Map {
 	
 	private int[][] layoutMap = new int[WIDTH][HEIGHT];
         private int[][] textureMap = new int[WIDTH][HEIGHT]; // Texture Indices
-        private Item[] items = new Item[8];
-        private Entity[] extras = new Entity[2];
+        private Item[] items;
+        private Entity[] extras;
 
 	/**
 	 * Create a new map. Load Map from File. Load tileset.
 	 */
-	public Map(String layout, String texture, int width, int height) {
+	public Map(String level, int width, int height) {
             WIDTH = width;
             HEIGHT = height;
             try {
@@ -61,19 +61,39 @@ public class Map {
             textures[7] = tileset.getSubimage(96,64,TILE_SIZE,TILE_SIZE); // Wall SW
             textures[8] = tileset.getSubimage(32,32,TILE_SIZE,TILE_SIZE); // Tiles Light
             textures[9] = tileset.getSubimage(0,32,TILE_SIZE,TILE_SIZE); // Tiles Broken
-            
-            extras[0] = new Entity("kristie", this, 14f, 3f, 34, 46, 9);
-            extras[1] = new Entity("daniel", this, 16f, 3f, 34, 46, 9);
-            
-            //saveLayout(layoutMap, "layout.dat");
-            layoutMap = loadLayout(layout);
-            //saveTextures(textureMap, "texture.dat");
-            textureMap = loadTextures(texture);
-            
-            //saveItems(itemsData, "items.dat");
-            items = loadItems("items.dat");
-
+             
+            loadMap(level);
         }
+        
+        /*
+         * Loads the Textures, Layout, Items, Extras from Folder
+         * 
+         * @param level Folder containing .dat files.
+         */
+        public void loadMap(String level) 
+        {
+            // TODO: Load Maps width and height from file
+            layoutMap = loadLayout(level+"/layout.dat");
+            textureMap = loadTextures(level+"/texture.dat");
+            items = loadItems(level+"/items.dat");
+            extras = loadEntities(level+"/entities.dat");
+        }
+        
+        /*
+         * Save the Textures, Layout, Items, Extras from Folder
+         * 
+         * @param level Folder containing .dat files.
+         */
+        public void saveMap(String level) 
+        {
+            // TODO: Save Maps width and height to file
+            saveLayout(layoutMap, "layout.dat");
+            saveTextures(textureMap, "texture.dat");
+            //TODO: Items.toString and Entities.toString pushed to String[][] and passed below
+            //saveItems(itemsData, "items.dat");
+            //saveEntities(itemsData, "entities.dat");
+        }
+        
         /*
          * Assign a value to a square for quicker map design
          * 
@@ -214,7 +234,7 @@ public class Map {
          * itemsData[6] = new String[] { "bars", "238","275","32","32","7","10" };
          * itemsData[7] = new String[] { "bars", "238","275","32","32","8","10" };
          * 
-         * @param map Array of Items
+         * @param items Array of Items
          * @param filename Filename to save To
          */
         public void saveItems(String[][] items, String filename) {
@@ -280,5 +300,82 @@ public class Map {
                 items[i] = new Item(name, anchorX, anchorY, width, height, x, y);
             }
             return items;
+        }
+        
+         /*
+         * Saves the Entitys
+         * extras[0] = new Entity("kristie", this, 14f, 3f, 34, 46, 9);
+         * extras[1] = new Entity("daniel", this, 16f, 3f, 34, 46, 9);
+         *   
+         * String[][] itemsData = new String[2][6];
+         * itemsData[0] = new String[] { "kristie", "14f", "3f", "34", "46", "9" };
+         * itemsData[1] = new String[] { "daniel", "16f", "3f", "34", "46", "9" };
+         * 
+         * @param entities Array of Entities
+         * @param filename Filename to save To
+         */
+        public void saveEntities(String[][] entities, String filename) {
+            try {
+		FileOutputStream fos = new FileOutputStream(filename);
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(entities);
+                oos.close();
+                fos.close();  
+            } catch (Exception e) {
+                System.err.println("Unable to Save Entities");
+                System.exit(0);
+            }
+        }
+        
+        /*
+         * Loads the entities.
+         * 
+         * @param filename Filename to load from
+         * @return Array Entity
+         */
+        public Entity[] loadEntities(String filename) {
+            String[][] entities = null;
+            try {
+		FileInputStream fis = new FileInputStream(filename);
+		ObjectInputStream iis = new ObjectInputStream(fis);
+		entities = (String[][]) iis.readObject();
+                iis.close();
+                fis.close();
+
+            } catch (Exception e) {
+                System.err.println("Unable to Load Entities");
+                System.exit(0);
+            }
+            
+            return entitiesToArray(entities);
+        }
+        
+        /*
+         * Returns an Item[] items. built from String[] of paramters
+         * 
+         * 
+         * @param data String[] containing parameters for item class
+         * itemsData[7] = new String[] { "bars", "238","275","32","32","8","10" };
+         * 
+         * @return Item[]
+         * new Item("name",1,1,1,1,1) ;
+         */
+        public Entity[] entitiesToArray(String[][] data)
+        {
+            extras = new Entity[data.length];
+            String name = ""; 
+            float x, y = 0;
+            int width, height, currentFrame = 0;
+            for (int i=0; i<data.length; i++) 
+            {
+                name = data[i][0];
+                x = Float.parseFloat(data[i][1]);
+                y = Float.parseFloat(data[i][2]);
+                width = Integer.parseInt(data[i][3]);
+                height = Integer.parseInt(data[i][4]);
+                currentFrame = Integer.parseInt(data[i][5]);
+                extras[i] = new Entity(name, this, x, y, width, height,currentFrame);
+            }
+            return extras;
         }
 }
