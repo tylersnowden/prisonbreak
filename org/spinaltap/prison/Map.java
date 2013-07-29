@@ -24,12 +24,12 @@ public class Map {
         private BufferedImage tileset;
         private BufferedImage[] textures = new BufferedImage[10];
         	
-	private static int WIDTH = 20;
-	private static int HEIGHT = 15;
+	private static int WIDTH;
+	private static int HEIGHT;
 	public static final int TILE_SIZE = 32;
 	
-	private int[][] layoutMap = new int[WIDTH][HEIGHT];
-        private int[][] textureMap = new int[WIDTH][HEIGHT]; // Texture Indices
+	private int[][] layoutMap;
+        private int[][] textureMap; // Texture Indices
         private Item[] items;
         private Entity[] extras;
 
@@ -39,6 +39,8 @@ public class Map {
 	public Map(String level, int width, int height) {
             WIDTH = width;
             HEIGHT = height;
+            layoutMap = new int[WIDTH][HEIGHT];
+            textureMap = new int[WIDTH][HEIGHT];
             try {
                 URL url = Thread.currentThread().getContextClassLoader().getResource("res/tileset.png");
                 if (url == null) {
@@ -119,11 +121,11 @@ public class Map {
 	public void paint(Graphics2D g) {
 
             g.setColor(Color.darkGray); // Default NULL Tile
-            for (int x=0;x<WIDTH;x++) {
-                    for (int y=0;y<HEIGHT;y++) g.drawImage(textures[textureMap[x][y]], null, x*TILE_SIZE, y*TILE_SIZE);
+            for (int x=0;x<textureMap.length;x++) {
+                    for (int y=0;y<textureMap[x].length;y++) g.drawImage(textures[textureMap[x][y]], null, x*TILE_SIZE, y*TILE_SIZE);
             }
             for (int i=0; i<items.length;i++) items[i].paint(g);
-            for (int i=0; i<extras.length;i++) extras[i].paint(g);
+            //for (int i=0; i<extras.length;i++) extras[i].paint(g);
             
 	}
 	

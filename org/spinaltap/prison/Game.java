@@ -4,17 +4,12 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.SplashScreen;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URL;
-import javax.imageio.ImageIO;
 
 /**
  * Prison Break Game
@@ -32,7 +27,10 @@ public class Game extends Canvas implements KeyListener {
 	private boolean down;
 
 	private Map map;
+        private int WIDTH = 800;
+        private int HEIGHT = 600;
 	private Entity player;
+        private Interface ui;
 	
 	/**
 	 * Create the simple game - this also starts the game loop
@@ -40,9 +38,9 @@ public class Game extends Canvas implements KeyListener {
 	public Game() throws IOException {
 		Frame frame = new Frame("Prison Break");
 		frame.setLayout(null);
-		setBounds(0,0,800,600);
+		setBounds(0,0,WIDTH,HEIGHT);
 		frame.add(this);
-		frame.setSize(800,600);
+		frame.setSize(WIDTH,HEIGHT);
 		frame.setResizable(false);
 		
                 // Exit on Close
@@ -62,20 +60,16 @@ public class Game extends Canvas implements KeyListener {
 		createBufferStrategy(2);
 		strategy = getBufferStrategy();
                 
-//                try {
-//                    URL url = Thread.currentThread().getContextClassLoader().getResource("res/start.png");
-//                    Image startImage = ImageIO.read(url);  
-//                    Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
-//                    g.drawImage(startImage,0,0,null);  
-//                } catch (IOException e) {
-//                    System.err.println("Unable to load sprite: res/start.png");
-//                    System.exit(0);
-//                } 
+                //Opening
+                if (false) {
+                    
+                }
                 
 		
 		// Level 1
                 if (true) {
                     map = new Map("level1",20,15);
+                    ui = new Interface(WIDTH, 100);
                     player = new Entity("tyler", map, 6f, 6f, 34, 46, 9);
                     gameLoop();
                 }
@@ -93,11 +87,12 @@ public class Game extends Canvas implements KeyListener {
 			
 			// Clear Screen
 			g.setColor(Color.black);
-			g.fillRect(0,0,800,600);
+			g.fillRect(0,0,WIDTH,HEIGHT);
 			
 			// Render Objects
-			g.translate(80,70);
+			g.translate(2,25);
 			map.paint(g);
+                        ui.paint(g);
 			player.paint(g);
                         
 			// Clear the Buffer
