@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.util.Arrays;
 import javax.imageio.ImageIO;
 
 /**
@@ -23,28 +24,31 @@ public class Map {
         private BufferedImage tileset;
         private BufferedImage[] textures = new BufferedImage[10];
         	
-	private static final int WIDTH = 20;
-	private static final int HEIGHT = 15;
+	private static int WIDTH = 20;
+	private static int HEIGHT = 15;
 	public static final int TILE_SIZE = 32;
 	
 	private int[][] layoutMap = new int[WIDTH][HEIGHT];
         private int[][] textureMap = new int[WIDTH][HEIGHT]; // Texture Indices
+        private Item[] items = new Item[8];
+        private Entity[] extras = new Entity[2];
 
 	/**
 	 * Create a new map. Load Map from File. Load tileset.
 	 */
-	public Map() {
-            
+	public Map(String layout, String texture, int width, int height) {
+            WIDTH = width;
+            HEIGHT = height;
             try {
-                    URL url = Thread.currentThread().getContextClassLoader().getResource("res/tileset.png");
-                    if (url == null) {
-                            System.err.println("Unable to find sprite: res/tileset.png");
-                            System.exit(0);
-                    }
-                    tileset = ImageIO.read(url);    
+                URL url = Thread.currentThread().getContextClassLoader().getResource("res/tileset.png");
+                if (url == null) {
+                        System.err.println("Unable to find sprite: res/tileset.png");
+                        System.exit(0);
+                }
+                tileset = ImageIO.read(url);    
             } catch (IOException e) {
-                    System.err.println("Unable to load sprite: res/tileset.png");
-                    System.exit(0);
+                System.err.println("Unable to load sprite: res/tileset.png");
+                System.exit(0);
             }
 
             textures[0] = tileset.getSubimage(64,0,TILE_SIZE,TILE_SIZE); // Wood
@@ -58,111 +62,18 @@ public class Map {
             textures[8] = tileset.getSubimage(32,32,TILE_SIZE,TILE_SIZE); // Tiles Light
             textures[9] = tileset.getSubimage(0,32,TILE_SIZE,TILE_SIZE); // Tiles Broken
             
-            // Map Creation --------------------------------
+            extras[0] = new Entity("kristie", this, 14f, 3f, 34, 46, 9);
+            extras[1] = new Entity("daniel", this, 16f, 3f, 34, 46, 9);
             
-            for (int y=0;y<HEIGHT;y++) {
-                    layoutMap[0][y] = BLOCKED;
-                    layoutMap[10][y] = BLOCKED;
-                    layoutMap[3][y] = BLOCKED;
-                    layoutMap[WIDTH-1][y] = BLOCKED;
-            }
-            for (int x=0;x<WIDTH;x++) {
-                    layoutMap[x][0] = BLOCKED;
-                    layoutMap[x][10] = BLOCKED;
-                    layoutMap[x][HEIGHT-1] = BLOCKED;
-            }
-
-            layoutMap[1][10] = CLEAR;
-            layoutMap[2][10] = CLEAR;
-            layoutMap[3][11] = CLEAR;
-            layoutMap[10][11] = CLEAR;
-            layoutMap[10][12] = CLEAR;
-            layoutMap[10][13] = CLEAR;
-            layoutMap[3][12] = CLEAR;
-            layoutMap[3][13] = CLEAR;
-            layoutMap[5][10] = CLEAR;
-            layoutMap[6][10] = CLEAR;
-            layoutMap[7][10] = CLEAR;
-            layoutMap[8][10] = CLEAR;
-            layoutMap[12][10] = CLEAR;
-            layoutMap[13][10] = CLEAR;
-            layoutMap[14][10] = CLEAR;
-            layoutMap[15][10] = CLEAR;
-            layoutMap[19][12] = CLEAR;
-            layoutMap[4][1] = BLOCKED;
-            layoutMap[5][10] = BLOCKED;
-            layoutMap[6][10] = BLOCKED;
-            layoutMap[7][10] = BLOCKED;
-            layoutMap[8][10] = BLOCKED;
-
-            assignSquare(layoutMap,17,1,2,1,BLOCKED);    
-            assignSquare(layoutMap,11,1,2,1,BLOCKED);    
-            
-            for (int y=0;y<HEIGHT;y++) {
-                    textureMap[0][y] = 2;
-                    textureMap[1][y] = 1;
-                    textureMap[2][y] = 1;
-                    textureMap[3][y] = 2;
-                    textureMap[4][y] = 1;
-                    textureMap[5][y] = 1;
-                    textureMap[6][y] = 1;
-                    textureMap[7][y] = 1;
-                    textureMap[8][y] = 1;
-                    textureMap[9][y] = 1;
-                    textureMap[10][y] = 2;
-                    textureMap[11][y] = 1;
-                    textureMap[12][y] = 1;
-                    textureMap[13][y] = 1;
-                    textureMap[14][y] = 1;
-                    textureMap[15][y] = 1;
-                    textureMap[16][y] = 1;
-                    textureMap[17][y] = 1;
-                    textureMap[18][y] = 1;
-                    textureMap[WIDTH-1][y] = 2;
-            }
-            for (int x=0;x<WIDTH;x++) {
-                    textureMap[x][0] = 3;
-                    textureMap[x][10] = 3;
-                    textureMap[x][HEIGHT-1] = 3;
-            }
-
-            textureMap[1][10] = 1;
-            textureMap[2][10] = 1;
-            textureMap[2][10] = 1;
-            textureMap[3][11] = 1;
-            textureMap[5][10] = 1;
-            textureMap[6][10] = 1;
-            textureMap[7][10] = 1;
-            textureMap[8][10] = 1;
-            textureMap[12][10] = 1;
-            textureMap[13][10] = 1;
-            textureMap[14][10] = 1;
-            textureMap[15][10] = 1;
-            textureMap[3][12] = 1;
-            textureMap[3][13] = 1;
-            textureMap[0][10] = 2;
-            textureMap[10][11] = 1;
-            textureMap[10][12] = 1;
-            textureMap[10][13] = 1;
-            textureMap[19][12] = 1;
-            textureMap[WIDTH-1][10] = 2;
-            textureMap[3][10] = 7;
-            textureMap[0][0] = 5;
-            textureMap[0][HEIGHT-1] = 7;
-            textureMap[WIDTH-1][0] = 4;
-            textureMap[WIDTH-1][HEIGHT-1] = 6;
-            textureMap[8][2] = 9;
-            
-            assignSquare(textureMap,11,1,8,9,0);
-            
-            // End Map Creation ----------------------------
-
             //saveLayout(layoutMap, "layout.dat");
-            //layoutMap = loadLayout("layout.dat");
+            layoutMap = loadLayout(layout);
             //saveTextures(textureMap, "texture.dat");
-            //textureMap = loadTextures("texture.dat");
-	}
-        
+            textureMap = loadTextures(texture);
+            
+            //saveItems(itemsData, "items.dat");
+            items = loadItems("items.dat");
+
+        }
         /*
          * Assign a value to a square for quicker map design
          * 
@@ -189,18 +100,11 @@ public class Map {
 
             g.setColor(Color.darkGray); // Default NULL Tile
             for (int x=0;x<WIDTH;x++) {
-                    for (int y=0;y<HEIGHT;y++) {
-                        switch(layoutMap[x][y]) {
-                            case BLOCKED:
-                                g.drawImage(textures[textureMap[x][y]], null, x*TILE_SIZE, y*TILE_SIZE);
-                                break;
-                            case CLEAR:
-                                g.drawImage(textures[textureMap[x][y]], null, x*TILE_SIZE, y*TILE_SIZE);
-                                break;
-                            default: g.fillRect(x*TILE_SIZE,y*TILE_SIZE,TILE_SIZE,TILE_SIZE); break;  
-                        }
-                    }
+                    for (int y=0;y<HEIGHT;y++) g.drawImage(textures[textureMap[x][y]], null, x*TILE_SIZE, y*TILE_SIZE);
             }
+            for (int i=0; i<items.length;i++) items[i].paint(g);
+            for (int i=0; i<extras.length;i++) extras[i].paint(g);
+            
 	}
 	
 	/**
@@ -296,5 +200,85 @@ public class Map {
             }
             
             return map;
+        }
+        
+         /*
+         * Saves the Items
+         * String[][] itemsData = new String[8][7];
+         * temsData[0] = new String[] { "bookshelf", "211","111","64","62","17","1" };
+         * itemsData[1] = new String[] { "bookshelf", "211","111","64","62","11","1" };
+         * itemsData[2] = new String[] { "toilet", "0","0","32","50","4","1" };
+         * itemsData[3] = new String[] { "rug", "3","178","85","57","14","6" };
+         * itemsData[4] = new String[] { "plant", "138","184","27","46","11","8" };
+         * itemsData[5] = new String[] { "bars", "238","275","32","32","6","10" };
+         * itemsData[6] = new String[] { "bars", "238","275","32","32","7","10" };
+         * itemsData[7] = new String[] { "bars", "238","275","32","32","8","10" };
+         * 
+         * @param map Array of Items
+         * @param filename Filename to save To
+         */
+        public void saveItems(String[][] items, String filename) {
+            try {
+		FileOutputStream fos = new FileOutputStream(filename);
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(items);
+                oos.close();
+                fos.close();  
+            } catch (Exception e) {
+                System.err.println("Unable to Save Items");
+                System.exit(0);
+            }
+        }
+        
+        /*
+         * Loads the items.
+         * 
+         * @param filename Filename to load from
+         * @return Array Items
+         */
+        public Item[] loadItems(String filename) {
+            String[][] items = null;
+            try {
+		FileInputStream fis = new FileInputStream(filename);
+		ObjectInputStream iis = new ObjectInputStream(fis);
+		items = (String[][]) iis.readObject();
+                iis.close();
+                fis.close();
+
+            } catch (Exception e) {
+                System.err.println("Unable to Load Items");
+                System.exit(0);
+            }
+            
+            return itemsToArray(items);
+        }
+        
+        /*
+         * Returns an Item[] items. built from String[] of paramters
+         * 
+         * 
+         * @param data String[] containing parameters for item class
+         * itemsData[7] = new String[] { "bars", "238","275","32","32","8","10" };
+         * 
+         * @return Item[]
+         * new Item("name",1,1,1,1,1) ;
+         */
+        public Item[] itemsToArray(String[][] data)
+        {
+            items = new Item[data.length];
+            String name = ""; 
+            int anchorX, anchorY, width, height, x, y = 0;
+            for (int i=0; i<data.length; i++) 
+            {
+                name = data[i][0];
+                anchorX = Integer.parseInt(data[i][1]);
+                anchorY = Integer.parseInt(data[i][2]);
+                width = Integer.parseInt(data[i][3]);
+                height = Integer.parseInt(data[i][4]);
+                x = Integer.parseInt(data[i][5]);
+                y = Integer.parseInt(data[i][6]);
+                items[i] = new Item(name, anchorX, anchorY, width, height, x, y);
+            }
+            return items;
         }
 }

@@ -4,19 +4,24 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.SplashScreen;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import javax.imageio.ImageIO;
 
 /**
  * Prison Break Game
  * 
  * @author Tyler Snowden
  */
-public class Level1 extends Canvas implements KeyListener {
+public class Game extends Canvas implements KeyListener {
 	
 	private BufferStrategy strategy; // The buffered strategy used for accelerated rendering
 	
@@ -28,14 +33,11 @@ public class Level1 extends Canvas implements KeyListener {
 
 	private Map map;
 	private Entity player;
-        private Entity[] extras = new Entity[2];
-        
-        private Item[] items = new Item[9];
 	
 	/**
 	 * Create the simple game - this also starts the game loop
 	 */
-	public Level1() {
+	public Game() throws IOException {
 		Frame frame = new Frame("Prison Break");
 		frame.setLayout(null);
 		setBounds(0,0,800,600);
@@ -59,24 +61,24 @@ public class Level1 extends Canvas implements KeyListener {
 		// Strategy for 2D Rendering
 		createBufferStrategy(2);
 		strategy = getBufferStrategy();
-		
-		// Game Objects
-		map = new Map();
-                player = new Entity("tyler", map, 6f, 6f, 34, 46, 9);
-                extras[0] = new Entity("kristie", map, 14f, 3f, 34, 46, 9);
-                extras[1] = new Entity("daniel", map, 16f, 3f, 34, 46, 9);
-                items[0] = new Item("table", map, 211,111,64,62,17,1);
-                items[1] = new Item("table", map, 211,111,64,62,11,1);
-                items[2] = new Item("toilet", map, 0,0,32,50,4,1);
-                items[3] = new Item("rug", map, 3,178,85,57,14,6);
-                items[4] = new Item("plant", map, 138,184,27,46,11,8);
-                items[5] = new Item("bars", map, 238,275,32,32,5,10);
-                items[6] = new Item("bars", map, 238,275,32,32,6,10);
-                items[7] = new Item("bars", map, 238,275,32,32,7,10);
-                items[8] = new Item("bars", map, 238,275,32,32,8,10);
                 
-		// Start Game
-		gameLoop();
+//                try {
+//                    URL url = Thread.currentThread().getContextClassLoader().getResource("res/start.png");
+//                    Image startImage = ImageIO.read(url);  
+//                    Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
+//                    g.drawImage(startImage,0,0,null);  
+//                } catch (IOException e) {
+//                    System.err.println("Unable to load sprite: res/start.png");
+//                    System.exit(0);
+//                } 
+                
+		
+		// Level 1
+                if (true) {
+                    map = new Map("layout.dat","texture.dat",20,15);
+                    player = new Entity("tyler", map, 6f, 6f, 34, 46, 9);
+                    gameLoop();
+                }
 	}
 	
 	/**
@@ -94,10 +96,8 @@ public class Level1 extends Canvas implements KeyListener {
 			g.fillRect(0,0,800,600);
 			
 			// Render Objects
-			g.translate(30,50);
+			g.translate(80,70);
 			map.paint(g);
-                        for (int i=0; i<items.length;i++) items[i].paint(g);
-                        for (int i=0; i<extras.length;i++) extras[i].paint(g);
 			player.paint(g);
                         
 			// Clear the Buffer
@@ -167,7 +167,7 @@ public class Level1 extends Canvas implements KeyListener {
 	 * 
 	 * @param argv
 	 */
-	public static void main(String[] argv) {
-		new Level1();
+	public static void main(String[] argv) throws IOException {
+		new Game();
 	}
 }

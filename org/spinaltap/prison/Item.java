@@ -26,9 +26,8 @@ public class Item {
     private int width; // Width of character's single sprite
     private int height; // Height of character's single sprite
     
-    public Item (String name, Map map, int anchorx, int anchory, int width, int height, int x, int y) {
+    public Item (String name, int anchorx, int anchory, int width, int height, int x, int y) {
         this.name = name;
-        this.map = map;
         this.x = x;
         this.y = y;
         this.width = width;
