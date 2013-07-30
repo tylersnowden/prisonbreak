@@ -6,6 +6,8 @@ import java.awt.Frame;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
@@ -16,7 +18,7 @@ import java.io.IOException;
  * 
  * @author Tyler Snowden
  */
-public class Game extends Canvas implements KeyListener {
+public class Game extends Canvas implements KeyListener, MouseListener {
 	
 	private BufferStrategy strategy; // The buffered strategy used for accelerated rendering
 	
@@ -53,6 +55,8 @@ public class Game extends Canvas implements KeyListener {
 		// Key Listener
 		frame.addKeyListener(this);
 		addKeyListener(this);
+                frame.addMouseListener(this);
+                addMouseListener(this);
 		
 		frame.setVisible(true);
 		
@@ -155,6 +159,12 @@ public class Game extends Canvas implements KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) down = false;
 		if (e.getKeyCode() == KeyEvent.VK_UP) up = false;
 	}
+        
+        public void mouseClicked(MouseEvent e) {
+            int x = e.getX();
+            int y = e.getY();
+            ui.hearClick(x,y);
+        }
 	
 	/**
 	 * Entry Point
@@ -164,4 +174,20 @@ public class Game extends Canvas implements KeyListener {
 	public static void main(String[] argv) throws IOException {
 		new Game();
 	}
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
 }
