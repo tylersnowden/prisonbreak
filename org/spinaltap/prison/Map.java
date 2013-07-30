@@ -31,7 +31,7 @@ public class Map {
 	private int[][] layoutMap;
         private int[][] textureMap; // Texture Indices
         private Item[] items;
-        private Entity[] extras;
+        private Entity[] extras = new Entity[2];
 
 	/**
 	 * Create a new map. Load Map from File. Load tileset.
@@ -53,6 +53,7 @@ public class Map {
                 System.exit(0);
             }
 
+            // Textures --------------------------------------------------------------
             textures[0] = tileset.getSubimage(64,0,TILE_SIZE,TILE_SIZE); // Wood
             textures[1] = tileset.getSubimage(32,0,TILE_SIZE,TILE_SIZE); // Tiles
             textures[2] = tileset.getSubimage(32,64,TILE_SIZE,TILE_SIZE); // Wall Vert
@@ -63,8 +64,12 @@ public class Map {
             textures[7] = tileset.getSubimage(96,64,TILE_SIZE,TILE_SIZE); // Wall SW
             textures[8] = tileset.getSubimage(32,32,TILE_SIZE,TILE_SIZE); // Tiles Light
             textures[9] = tileset.getSubimage(0,32,TILE_SIZE,TILE_SIZE); // Tiles Broken
-             
+            // End Textures -----------------------------------------------------------
+            
             loadMap(level);
+            // Put Changes to Map Here and Save --
+            
+            //saveMap(level);
         }
         
         /*
@@ -89,11 +94,10 @@ public class Map {
         public void saveMap(String level) 
         {
             // TODO: Save Maps width and height to file
-            saveLayout(layoutMap, "layout.dat");
-            saveTextures(textureMap, "texture.dat");
-            //TODO: Items.toString and Entities.toString pushed to String[][] and passed below
-            //saveItems(itemsData, "items.dat");
-            //saveEntities(itemsData, "entities.dat");
+            saveLayout(level+"/layout.dat");
+            saveTextures(level+"/texture.dat");
+            saveItems(level+"/items.dat");
+            saveEntities(level+"/entities.dat");
         }
         
         /*
@@ -125,7 +129,7 @@ public class Map {
                     for (int y=0;y<textureMap[x].length;y++) g.drawImage(textures[textureMap[x][y]], null, x*TILE_SIZE, y*TILE_SIZE);
             }
             for (int i=0; i<items.length;i++) items[i].paint(g);
-            //for (int i=0; i<extras.length;i++) extras[i].paint(g);
+            for (int i=0; i<extras.length;i++) extras[i].paint(g);
             
 	}
 	
@@ -146,11 +150,11 @@ public class Map {
          * @param map Multi-Dimensional array of tiles
          * @param filename Filename to save To
          */
-        public void saveLayout(int[][] map, String filename) {
+        public void saveLayout(String filename) {
             try {
 		FileOutputStream fos = new FileOutputStream(filename);
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(map);
+		oos.writeObject(layoutMap);
                 oos.close();
                 fos.close();  
             } catch (Exception e) {
@@ -188,11 +192,11 @@ public class Map {
          * @param map Multi-Dimensional array of tiles
          * @param filename Filename to save To
          */
-        public void saveTextures(int[][] map, String filename) {
+        public void saveTextures(String filename) {
             try {
 		FileOutputStream fos = new FileOutputStream(filename);
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(map);
+		oos.writeObject(textureMap);
                 oos.close();
                 fos.close();  
             } catch (Exception e) {
@@ -239,11 +243,14 @@ public class Map {
          * @param items Array of Items
          * @param filename Filename to save To
          */
-        public void saveItems(String[][] items, String filename) {
+        public void saveItems(String filename) {
+            String[][] data = new String[items.length][7];
+            for (int i=0;i<items.length;i++) data[i] = items[i].itemToString();
+            
             try {
 		FileOutputStream fos = new FileOutputStream(filename);
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(items);
+		oos.writeObject(data);
                 oos.close();
                 fos.close();  
             } catch (Exception e) {
@@ -316,11 +323,14 @@ public class Map {
          * @param entities Array of Entities
          * @param filename Filename to save To
          */
-        public void saveEntities(String[][] entities, String filename) {
+        public void saveEntities(String filename) {
+            String[][] data = new String[extras.length][7];
+            for (int i=0;i<extras.length;i++) data[i] = extras[i].entityToString();
+            
             try {
 		FileOutputStream fos = new FileOutputStream(filename);
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(entities);
+		oos.writeObject(data);
                 oos.close();
                 fos.close();  
             } catch (Exception e) {
