@@ -22,7 +22,7 @@ public class PrisonBreak implements ApplicationListener {
     
         public void create () {
            
-            map = new Map();
+            map = new Map(800, 600);
             hero = new Entity("Tyler", 4, 4, 32, 46, 50, 50);
         }
 

@@ -11,14 +11,19 @@
    eJxjYmBgYKIyZkPDuMRINY+VyuZR233UMo8Jhz5yzRrsmJkMPGre0DGPmhgAA/wDNg==
   </data>
  </layer>
- <layer name="Items" width="20" height="15">
+ <layer name="FluidItems" width="20" height="15">
   <data encoding="base64" compression="zlib">
    eJxjYKA+UKRQHgS0kdiqBNQSkgcBfSLUjILhATSBWIuK5ukCsR4WcSUgVgZiFSrZowbE6kCsQSXzsAFtwkpIAvTOVwAeQgLN
   </data>
  </layer>
- <layer name="Border" width="20" height="15">
+ <layer name="SolidItems" width="20" height="15">
   <data encoding="base64" compression="zlib">
    eJzjY2Bg4ETDYkSKoWNeIOZiwATEimFTM9LMEwBifiQxQSAWxSLGTYH7yAW0MA/kX0LpCls6o6b7hKlsHi4wXM0TwmMeDwPp8SsKpbGleQDuAwP3
+  </data>
+ </layer>
+ <layer name="Doors" width="20" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKhAQAEsAAB
   </data>
  </layer>
 </map>

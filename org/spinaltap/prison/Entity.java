@@ -100,6 +100,7 @@ public class Entity {
             if(shape.y < 0) shape.y = 0;
             if(shape.y > 600 - 64) shape.y = 600 - 64;
             
+            batch.setProjectionMatrix(map.camera.combined);
             batch.begin();
             batch.draw(currentFrame, shape.x, shape.y); 
             batch.end();
