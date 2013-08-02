@@ -23,11 +23,11 @@ public class PrisonBreak implements ApplicationListener {
         public void create () {
            
             map = new Map();
-            hero = new Entity("Tyler", 4, 4, 34, 46, 20, 20);
+            hero = new Entity("Tyler", 4, 4, 32, 46, 50, 50);
         }
 
         public void render () {
-            Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+            Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
             int x = 0;
             int y = 0;
@@ -38,8 +38,9 @@ public class PrisonBreak implements ApplicationListener {
             if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) y -= 150 * Gdx.graphics.getDeltaTime();
             
             map.render();
+            hero.update(map,x,y); 
             
-            hero.update(x,y);
+            
             
         }
 

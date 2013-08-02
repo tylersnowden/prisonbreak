@@ -17,7 +17,7 @@ import java.awt.Rectangle;
 public class Entity {
         private String name;
         private SpriteBatch batch;
-        private Rectangle shape; // The 'physical' body
+        public Rectangle shape; // The 'physical' body
         private Texture image;
 	private static int FRAME_COLS;         
         private static int FRAME_ROWS;         
@@ -46,7 +46,7 @@ public class Entity {
             shape.x = x;
             shape.y = y;
             shape.width = width;
-            shape.height = width;
+            shape.height = height;
             
             // TODO: Make a file that specifys texture and animation info
             
@@ -75,22 +75,30 @@ public class Entity {
             stateTime = 0f;              
 	}
         
-        public void update(int x, int y) {
+        public void update(Map map, int x, int y) {
             stateTime += Gdx.graphics.getDeltaTime();  
             
             if ((x == 0) && (y == 0)) currentFrame = down[1];      
             else {
-                if (x > shape.x) currentFrame = rightAnim.getKeyFrame(stateTime, true); 
-                else if (x < shape.x) currentFrame = leftAnim.getKeyFrame(stateTime, true); 
-                else if (y > shape.y) currentFrame = upAnim.getKeyFrame(stateTime, true); 
-                else currentFrame = downAnim.getKeyFrame(stateTime, true);
+                if (x > 0) currentFrame = rightAnim.getKeyFrame(stateTime, true); 
+                else if (x < 0) currentFrame = leftAnim.getKeyFrame(stateTime, true); 
+                else if (y > 0) currentFrame = upAnim.getKeyFrame(stateTime, true); 
+                else if (y < 0) currentFrame = downAnim.getKeyFrame(stateTime, true);
             }
             
             shape.x += x;
             shape.y += y;
             
+            if (map.overlap(shape)) {
+                shape.x -= x;
+                shape.y -= y;
+            }
+            
             if(shape.x < 0) shape.x = 0;
             if(shape.x > 800 - 64) shape.x = 800 - 64;
+            
+            if(shape.y < 0) shape.y = 0;
+            if(shape.y > 600 - 64) shape.y = 600 - 64;
             
             batch.begin();
             batch.draw(currentFrame, shape.x, shape.y); 
