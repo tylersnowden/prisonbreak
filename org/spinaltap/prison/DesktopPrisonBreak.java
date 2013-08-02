@@ -11,10 +11,10 @@ public class DesktopPrisonBreak {
         public static void main (String[] args) {
             
             LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-            cfg.title = "MyGame";
+            cfg.title = "Prison Break";
             cfg.useGL20 = false;
-            cfg.width = 480;
-            cfg.height = 320;
+            cfg.width = 800;
+            cfg.height = 600;
             
             new LwjglApplication(new PrisonBreak(), cfg);
         }

@@ -2,13 +2,12 @@ package org.spinaltap.prison;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import java.awt.Rectangle;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 /**
  * Prison Break Game
@@ -19,43 +18,29 @@ public class PrisonBreak implements ApplicationListener {
     
     private Entity hero;
     private OrthographicCamera camera;
-    private SpriteBatch batch;
-    private Rectangle bucket;
-    private Texture bucketImage;
+    private Map map;
     
         public void create () {
-            
-            camera = new OrthographicCamera();
-            camera.setToOrtho(false, 800, 480);
-            
-            hero = new Entity("Tyler");
-            batch = new SpriteBatch();
-                
-            bucketImage = new Texture(Gdx.files.internal("res/bucket.png"));
-            bucket = new Rectangle();
-            bucket.x = 800 / 2 - 64 / 2;
-            bucket.y = 20;
-            bucket.width = 64;
-            bucket.height = 64;
+           
+            map = new Map();
+            hero = new Entity("Tyler", 4, 4, 34, 46, 20, 20);
         }
 
         public void render () {
-            
-            if(Gdx.input.isKeyPressed(Keys.LEFT)) bucket.x -= 200 * Gdx.graphics.getDeltaTime();
-            if(Gdx.input.isKeyPressed(Keys.RIGHT)) bucket.x += 200 * Gdx.graphics.getDeltaTime();
-            
-            if(bucket.x < 0) bucket.x = 0;
-            if(bucket.x > 800 - 64) bucket.x = 800 - 64;
-            
             Gdx.gl.glClearColor(0, 0, 0.2f, 1);
             Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+            int x = 0;
+            int y = 0;
             
-            camera.update();
+            if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) x -= 150 * Gdx.graphics.getDeltaTime();
+            if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) x += 150 * Gdx.graphics.getDeltaTime();
+            if(Gdx.input.isKeyPressed(Input.Keys.UP)) y += 150 * Gdx.graphics.getDeltaTime();
+            if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) y -= 150 * Gdx.graphics.getDeltaTime();
             
-            hero.batch.setProjectionMatrix(camera.combined);
-            hero.batch.begin();
-            hero.batch.draw(bucketImage, bucket.x, bucket.y);
-            hero.batch.end();
+            map.render();
+            
+            hero.update(x,y);
+            
         }
 
         public void resize (int width, int height) {
@@ -68,6 +53,7 @@ public class PrisonBreak implements ApplicationListener {
         }
 
         public void dispose () {
-            bucketImage.dispose();
+            hero.dispose();
+            map.dispose();
         }
 }
