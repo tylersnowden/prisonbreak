@@ -72,7 +72,9 @@ public class Entity {
             downAnim = new Animation(.15f, down);
             leftAnim = new Animation(.15f, left);
             rightAnim = new Animation(.15f, right);
-            stateTime = 0f;              
+            stateTime = 0f;    
+            
+            currentFrame = down[1];
 	}
         
         public void update(Map map, int x, int y) {
@@ -100,11 +102,16 @@ public class Entity {
             if(shape.y < 0) shape.y = 0;
             if(shape.y > 600 - 64) shape.y = 600 - 64;
             
+            render(map);
+            
+        }
+        
+        public void render(Map map)
+        {
             batch.setProjectionMatrix(map.camera.combined);
             batch.begin();
             batch.draw(currentFrame, shape.x, shape.y); 
             batch.end();
-            
         }
         
         public void dispose()

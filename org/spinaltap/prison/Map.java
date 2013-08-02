@@ -52,7 +52,7 @@ public class Map {
         
         public boolean overlap(Rectangle person)
         {
-            TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(2);
+            TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(3);
 
             int col = Math.round(person.x / 32);
             int row = Math.round(person.y / 32);
@@ -62,8 +62,16 @@ public class Map {
             row = (int) Math.ceil((person.y + person.height) / 32);
             if(layer.getCell(col, row) != null) return true;
             
+            col = (int) Math.ceil((person.x + person.width) / 32);
+            row = (int) Math.ceil((person.y + (person.height / 2)) / 32);
+            if(layer.getCell(col, row) != null) return true;
+            
             col = (int) Math.round(person.x / 32);
             row = (int) Math.ceil((person.y + person.height) / 32);
+            if(layer.getCell(col, row) != null) return true;
+            
+            col = (int) Math.round(person.x / 32);
+            row = (int) Math.ceil((person.y + (person.height / 2)) / 32);
             if(layer.getCell(col, row) != null) return true;
             
             col = (int) Math.ceil((person.x + person.width) / 32);

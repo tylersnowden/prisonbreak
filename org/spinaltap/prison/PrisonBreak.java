@@ -1,47 +1,31 @@
 package org.spinaltap.prison;
 
-import com.badlogic.gdx.ApplicationListener;
+import aurelienribon.tweenengine.TweenManager;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 /**
  * Prison Break Game
  * 
  * @author Tyler Snowden
  */
-public class PrisonBreak implements ApplicationListener {
+public class PrisonBreak extends Game {
     
-    private Entity hero;
-    private OrthographicCamera camera;
-    private Map map;
+    SplashScreen splash;
+    Level level1;
+    
+    int width = 800;
+    int height = 600;
     
         public void create () {
-           
-            map = new Map(800, 600);
-            hero = new Entity("Tyler", 4, 4, 32, 46, 50, 50);
+            
+            splash = new SplashScreen(this);
+            level1 = new Level(this);
+            setScreen(splash);
         }
 
         public void render () {
-            Gdx.gl.glClearColor(0, 0, 0, 1);
-            Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-            int x = 0;
-            int y = 0;
-            
-            if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) x -= 150 * Gdx.graphics.getDeltaTime();
-            if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) x += 150 * Gdx.graphics.getDeltaTime();
-            if(Gdx.input.isKeyPressed(Input.Keys.UP)) y += 150 * Gdx.graphics.getDeltaTime();
-            if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) y -= 150 * Gdx.graphics.getDeltaTime();
-            
-            map.render();
-            hero.update(map,x,y); 
-            
-            
-            
+            getScreen().render(Gdx.graphics.getDeltaTime());
         }
 
         public void resize (int width, int height) {
@@ -54,7 +38,6 @@ public class PrisonBreak implements ApplicationListener {
         }
 
         public void dispose () {
-            hero.dispose();
-            map.dispose();
+            
         }
 }
