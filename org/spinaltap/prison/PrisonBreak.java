@@ -15,7 +15,7 @@ public class PrisonBreak extends Game {
     Level level1;
     
     int width = 800;
-    int height = 600;
+    int height = 800;
     
         public void create () {
             

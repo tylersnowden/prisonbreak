@@ -30,10 +30,10 @@ public class Map {
             
             TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(0);
             marginX = ((layer.getWidth()*32) - width) / 2;
-            marginY = ((layer.getHeight()*32) - height) / 2;
+            marginY = (((layer.getHeight()*32) - height) / 2)+100;
             
             camera = new OrthographicCamera();
-            camera.setToOrtho(false, width, height);
+            camera.setToOrtho(false, 800, 600);
             camera.translate(marginX, marginY);
             camera.update();
         }

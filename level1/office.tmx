@@ -18,12 +18,12 @@
  </layer>
  <layer name="Doors" width="20" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFgxGIQzEhsVEwCkYSAAAdDwBd
+   eJxjYBgFQwWIQ/EoGAUjFQAAjwwALw==
   </data>
  </layer>
  <layer name="Borders" width="20" height="15" visible="0">
   <data encoding="base64" compression="zlib">
-   eJzjYGBg4KABRgbY+Ohi6ACXWdjMwyVGS/OQzaS2eeSEMSnuIxfQyjxK0xcu80hxBz7zqAUGg3nEhB+1zaNGPMP4AF0oA1E=
+   eJzjYGBg4KABRgbY+Ohi6ACXWdjMwyVGS/OQzaS2eRw4xPCFMSnuIxfQyjxK0xcu80hxBz7zqAUGg3nEhB+1zaNGPMP4ACvIA0E=
   </data>
  </layer>
 </map>

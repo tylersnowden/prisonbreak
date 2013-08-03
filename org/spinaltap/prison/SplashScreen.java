@@ -18,7 +18,7 @@ public class SplashScreen implements Screen
         private SpriteBatch spriteBatch;
         private Texture splash;
         private PrisonBreak myGame;
-        //private final TweenManager tweenManager = new TweenManager();
+        private final TweenManager tweenManager = new TweenManager();
         private Sprite splashSprite;
         
         /**
