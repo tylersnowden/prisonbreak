@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="30" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Map" tilewidth="32" tileheight="32">
+  <image source="../../res/tileset.png" width="128" height="256"/>
+ </tileset>
+ <layer name="Background" width="40" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt2KsVACAUw9AeHI/P/uNSBkBTERF/dbakHtpy5VpohQ8fPnz4IsOHDx8+fJnhw4cPH77Mrm3q/wd6NdwBqusNXw==
+  </data>
+ </layer>
+ <layer name="Items" width="40" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
+  </data>
+ </layer>
+ <layer name="Doors" width="40" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
+  </data>
+ </layer>
+ <layer name="Borders" width="40" height="30" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztzrEJADAMwLCM+f/iHuElBQm8e2dmj3eVv8Zf46/x1/hr/DX+Gn+Nv8Zf46/x1/hrfvm73AP1iQRB
+  </data>
+ </layer>
+</map>

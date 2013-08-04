@@ -6,28 +6,21 @@ package org.spinaltap.prison;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
@@ -40,11 +33,10 @@ public class Ui extends Stage {
     private final Sprite bgSprite;
     private final SpriteBatch bgBatch;
     private Table table;
-    private Label content;
-    private ArrayList<TextButton> actions;
+    
+    private Timer timer = new Timer();
     
     public Ui() {
-        this.actions = new ArrayList<TextButton>();
         bgBatch = new SpriteBatch();
         bg = new Texture(Gdx.files.internal("res/bg.png"));
         bgSprite = new Sprite(bg);
@@ -59,11 +51,8 @@ public class Ui extends Stage {
         skin.add("default", new BitmapFont());
 
         TextButtonStyle textButtonStyle = new TextButtonStyle();
-        textButtonStyle.up = skin.newDrawable("white", Color.DARK_GRAY);
-        textButtonStyle.down = skin.newDrawable("white", Color.DARK_GRAY);
-        textButtonStyle.checked = skin.newDrawable("white", Color.BLUE);
-        textButtonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
         textButtonStyle.font = skin.getFont("default");
+        textButtonStyle.fontColor = Color.LIGHT_GRAY;
         skin.add("default", textButtonStyle);
         
         LabelStyle labelStyle = new LabelStyle();
@@ -80,8 +69,6 @@ public class Ui extends Stage {
         //table.debugTable();
         addActor(table);
         
-        content = new Label("Placeholder", skin);
-        table.add(content);
     }
     
     public void render () {
@@ -102,32 +89,28 @@ public class Ui extends Stage {
             skin.dispose();
     }
     
-    public void choice(String event)
+    public void choice(Action event)
     {
-        content.setText(event);
         table.debug();
         table.clearChildren();
         table.row();
-        table.add(content);
+        table.add(event.content);
         table.row();
-        for(TextButton act: actions) table.add(act);
+        for(TextButton act: event.actions) table.add(act);
         
         table.layout();
         
     }
     
-    public void setContent(String event) {
-        content.setText(event);
-    }
-    
-    public void clear()
-    {
-        content.setText("");
-        actions.clear();
-    }
-    
-    public void addAction(String name) {
-        actions.add(new TextButton(name, skin));
+    public void speak(Action event) {
+        table.clear();
+        table.add(event.content);
+        timer.schedule(new TimerTask() {  
+            @Override  
+            public void run() {  
+                table.clear();
+            }  
+        }, 10000);  
     }
     
 }

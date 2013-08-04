@@ -1,0 +1,31 @@
+{
+   "init": {
+         "ui": "Well, according to the judge, this will be your life for the next six years.."
+    },
+	"hero" : {
+			"name" : "Tyler",
+			"cols" : 4,
+			"rows" : 4,
+			"width" : 30,
+			"height" : 40,
+			"x" : 2,
+			"y" : 13,
+			"direction" : 1
+    },
+    "ai": [
+         {
+			"name" : "Daniel",
+			"cols" : 4,
+			"rows" : 4,
+			"width" : 30,
+			"height" : 40,
+			"x" : 7,
+			"y" : 11,
+			"direction" : 1,
+                    "action" : [
+                                        "DANIEL:\nDon't just stand here. The warden wants to talk to you.",
+                                        "DANIEL:\nIt's just me you idiot."
+                                ]
+         }
+    ]
+}

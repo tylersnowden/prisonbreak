@@ -20,7 +20,7 @@ public class PrisonBreak extends Game {
         public void create () {
             
             splash = new SplashScreen(this);
-            level1 = new Level(this);
+            level1 = new Level(this, "office");
             setScreen(splash);
         }
 

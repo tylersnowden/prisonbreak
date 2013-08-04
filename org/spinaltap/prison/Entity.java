@@ -5,14 +5,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 /**
  * A single Character that moves and animates via sprites.
  * 
  * @author Tyler Snowden
  */
-public class Entity {
+public class Entity extends Actor {
         private String name;
         private SpriteBatch batch;
         public Rectangle shape; // The 'physical' body
@@ -29,6 +31,8 @@ public class Entity {
         private final int DOWN_IDLE = 1;
         private final int LEFT_IDLE = 2;
         private final int RIGHT_IDLE = 3;
+        
+        public ArrayList<Action> actions = new ArrayList<Action>();
         
         float stateTime;             
 	
@@ -47,8 +51,8 @@ public class Entity {
                 
             image = new Texture(Gdx.files.internal("res/"+name+".png"));
             shape = new Rectangle();
-            shape.x = x;
-            shape.y = y;
+            shape.x = x*32;
+            shape.y = y*32;
             shape.width = width;
             shape.height = height;
             
@@ -88,7 +92,7 @@ public class Entity {
             }
 	}
         
-        public void update(Map map, Entity[] ai, int x, int y) {
+        public void update(Map map, ArrayList<Entity> ai, int x, int y) {
             stateTime += Gdx.graphics.getDeltaTime();  
             
             if ((x == 0) && (y == 0)) {
@@ -126,13 +130,7 @@ public class Entity {
                 }   
             }
             
-            if (moved) {
-                if(shape.x < 100) map.camera.translate(x, y);
-                if(shape.x > 700) map.camera.translate(x, y);
-
-                if(shape.y < 100) map.camera.translate(x, y);
-                if(shape.y > 500) map.camera.translate(x, y);
-            }
+            if (moved) map.camera.translate(x, y);
             
             render(map);
             
@@ -170,6 +168,12 @@ public class Entity {
                     break;
             }
             return actionArea;
+        }
+        
+        public String speak(int index)
+        {
+            Action phrase = actions.get(index);
+            return (String) phrase.content.getText();
         }
                
 }

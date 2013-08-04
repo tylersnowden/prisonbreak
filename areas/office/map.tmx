@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="Map" tilewidth="32" tileheight="32">
-  <image source="../res/tileset.png" width="128" height="256"/>
+  <image source="../../res/tileset.png" width="128" height="256"/>
  </tileset>
  <tileset firstgid="33" name="Office" tilewidth="32" tileheight="32">
-  <image source="../res/office.png" width="128" height="128"/>
+  <image source="../../res/office.png" width="256" height="128"/>
  </tileset>
  <layer name="Background" width="20" height="15">
   <data encoding="base64" compression="zlib">
-   eJzjY2Bg4ETDYkSKoWNeIOYCYjY0jEuMiQDmQtPLSmXzqO0+apgnAMT8SPoEgVgUixg3Ce4jpI5YTAvzQP4llK6wpTN87mMmEQtT2TzmQW6eEJXNw5UmQOI8ZMSvKJTmRzILluYBBlgGag==
+   eJzjY2Bg4ETDYkSKoWNeIOYCYjY0jEuMmQDmQtPLSmXzqO0+apgnAMT8SPoEgVgUi5gICe5jIgKT4t/hYB4PAyTN8mMxRxAqJ0KCecT6YaSZBwtncjA/klmgOOEGYgBDMAY1
   </data>
  </layer>
  <layer name="Items" width="20" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYKA+UKRQHgS0kdiqBNQSkgcBfSLUjILhATSBWIuK5ukCsR4WcSUgVgZiFSrZowbE6kCsQSXzsAFtwkpIAvTOVwAeQgLN
+   eJxjYKA+UCRS3hCIjfDQMKBJwDyYvCUQW+GhSQVKQKyMA6uQYZ4WEGsDsS4Q60GxPlRMhwzzYMAUiM2g2JwCc6gNjMmUwwWsyZQbBcMHAABKlAgd
   </data>
  </layer>
  <layer name="Doors" width="20" height="15">
@@ -23,7 +23,7 @@
  </layer>
  <layer name="Borders" width="20" height="15" visible="0">
   <data encoding="base64" compression="zlib">
-   eJzjYGBg4KABRgbY+Ohi6ACXWdjMwyVGS/OQzaS2eRw4xPCFMSnuIxfQyjxK0xcu80hxBz7zqAUGg3nEhB+1zaNGPMP4ACvIA0E=
+   eJzjYGBg4KABRgbY+OSahc08XGLY1AwG83D5j5AYoXAh1n241FLbPHxqSfEHLc3DFVekmkeKnSPNPGpiAAaXA2E=
   </data>
  </layer>
 </map>

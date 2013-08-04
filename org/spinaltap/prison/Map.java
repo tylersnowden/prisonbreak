@@ -3,10 +3,9 @@ package org.spinaltap.prison;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import java.awt.Rectangle;
 
 /**
@@ -14,7 +13,7 @@ import java.awt.Rectangle;
  * 
  * @author Tyler Snowden
  */
-public class Map {
+public class Map extends Stage {
     public TiledMap map;
     public final OrthogonalTiledMapRenderer renderer;
     public OrthographicCamera camera;
@@ -24,17 +23,15 @@ public class Map {
 	/**
 	 * Create a new map. Load Map from File. Load tileset.
 	 */
-	public Map(int width, int height) {
-            map = new TmxMapLoader().load("level1/office.tmx");
+	public Map(int width, int height, String level) {
+            map = new TmxMapLoader().load("areas/"+level+"/map.tmx");
             renderer = new OrthogonalTiledMapRenderer(map);
             
             TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(0);
-            marginX = ((layer.getWidth()*32) - width) / 2;
-            marginY = (((layer.getHeight()*32) - height) / 2)+100;
             
             camera = new OrthographicCamera();
             camera.setToOrtho(false, 800, 600);
-            camera.translate(marginX, marginY);
+            camera.translate(-300, 100);
             camera.update();
         }
         

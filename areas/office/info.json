@@ -1,0 +1,44 @@
+{
+   "init": {
+         "ui": "You wake up in a cell. You vaguely remember what happened last night. What did you do this time? \nI guess you'll find out soon."
+    },
+	"hero" : {
+			"name" : "Tyler",
+			"cols" : 4,
+			"rows" : 4,
+			"width" : 30,
+			"height" : 40,
+			"x" : 2,
+			"y" : 12,
+			"direction" : 1
+    },
+    "ai": [
+         {
+			"name" : "Daniel",
+			"cols" : 4,
+			"rows" : 4,
+			"width" : 30,
+			"height" : 40,
+			"x" : 6,
+			"y" : 12,
+			"direction" : 1,
+                    "action" : [
+                                        "DANIEL:\nDon't just stand here. The warden wants to talk to you.",
+                                        "DANIEL:\nIt's just me you idiot."
+                                ]
+         },
+        {
+               "name" : "Kristie",
+               "cols" : 4,
+               "rows" : 4,
+               "width" : 30,
+               "height" : 40,
+               "x" : 14,
+               "y" : 11,
+               "direction" : 1,
+               "action" : [
+                    "WARDEN:\nI hope you had a fun night. It might be the last one you'll\nhave for a long time. The guards will be assigning you a cell. \nWelcome to Arizona Maximum Security Prison."
+               ]
+         }
+    ]
+}
