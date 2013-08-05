@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 /**
  * Map consists of tiles with varying states.
@@ -19,6 +20,7 @@ public class Map extends Stage {
     public OrthographicCamera camera;
     private float marginX;
     private float marginY;
+    public ArrayList<HotSpot> hotSpots = new ArrayList<HotSpot>();
     
 	/**
 	 * Create a new map. Load Map from File. Load tileset.
@@ -76,6 +78,17 @@ public class Map extends Stage {
             if(layer.getCell(col, row) != null) return true;
             
             return false;
+        }
+        
+        public void isExit(Rectangle person)
+        {
+           for (HotSpot tmp : hotSpots)
+           {
+               if (person.intersects(tmp.area)) 
+               { 
+                   tmp.perform();
+               }
+           }
         }
         
 }

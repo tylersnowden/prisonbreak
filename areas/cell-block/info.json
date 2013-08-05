@@ -27,5 +27,8 @@
                                         "DANIEL:\nIt's just me you idiot."
                                 ]
          }
+    ],
+    "hot-spot" : [
+        { "x" : 5, "y" : 5, "key" : "move", "value" : "cell-block" }
     ]
 }

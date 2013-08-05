@@ -40,5 +40,8 @@
                     "WARDEN:\nI hope you had a fun night. It might be the last one you'll\nhave for a long time. The guards will be assigning you a cell. \nWelcome to Arizona Maximum Security Prison."
                ]
          }
+    ],
+    "hot-spot" : [
+        { "x" : 5, "y" : 5, "key" : "move", "value" : "cell-block" }
     ]
 }

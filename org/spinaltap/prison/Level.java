@@ -65,6 +65,7 @@ public class Level implements Screen
             
             map.render();
             hero.update(map,ai,x,y); 
+            map.isExit(hero.shape);
             
             for(Entity user: ai) {
                 user.render(map);
@@ -112,12 +113,22 @@ public class Level implements Screen
                 Object obj = parser.parse(new FileReader("areas/"+level+"/info.json"));
                 JSONObject jsonObject = (JSONObject) obj;
                 JSONObject init = (JSONObject) jsonObject.get("init");
+                JSONArray hotSpots = (JSONArray) jsonObject.get("hot-spot");
+                Iterator<JSONObject> iterator = hotSpots.iterator();
+		while (iterator.hasNext()) {
+                    JSONObject tmp = iterator.next();
+                    long x = (long) tmp.get("x");
+                    long y = (long) tmp.get("y");
+                    String key = (String) tmp.get("key");
+                    String value = (String) tmp.get("value");
+                    map.hotSpots.add(new HotSpot((int)x,(int)y,key,value,this));
+		}
 
                 hud.speak(new Action(hud.skin, (String) init.get("ui")));
                 hero = loadEntity((JSONObject) jsonObject.get("hero"));
                 
                 JSONArray pawn = (JSONArray) jsonObject.get("ai");
-		Iterator<JSONObject> iterator = pawn.iterator();
+		iterator = pawn.iterator();
 		while (iterator.hasNext()) {
                         ai.add(loadAi(iterator.next()));
 		}
