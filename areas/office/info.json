@@ -42,6 +42,7 @@
          }
     ],
     "hot-spot" : [
-        { "x" : 5, "y" : 5, "key" : "move", "value" : "cell-block" }
+        { "x" : 16, "y" : -1, "key" : "move", "value" : "cell-block" },
+        { "x" : 17, "y" : -1, "key" : "move", "value" : "cell-block" }
     ]
 }

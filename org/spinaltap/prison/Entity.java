@@ -122,8 +122,6 @@ public class Entity extends Actor {
                 moved = false;
             }
             
-            if (map.overlap(shape))
-            
             for (Entity target: ai) {
                 if (shape.intersects(target.shape)) {
                     shape.x -= x;

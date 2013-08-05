@@ -1,6 +1,5 @@
 package org.spinaltap.prison;
 
-import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 

@@ -20,9 +20,9 @@ public class HotSpot {
     
     public HotSpot(int x, int y, String key, String value, Level current)
     {
-        this.x = x;
-        this.y = y;
-        this.area = new Rectangle(x,y,32,32);
+        this.x = x*32;
+        this.y = y*32;
+        this.area = new Rectangle(this.x,this.y,32,32);
         this.key = key;
         this.value = value;
         this.current = current;
@@ -30,7 +30,6 @@ public class HotSpot {
     
     public void perform()
     {
-        
         if ("move".equals(key)) {
             current.loadLevel(value);
         }

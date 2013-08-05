@@ -8,8 +8,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -22,8 +20,6 @@ import org.json.simple.parser.ParseException;
 
 public class Level implements Screen
 {
-        private SpriteBatch spriteBatch;
-        private Texture splash;
         private PrisonBreak myGame;
         private Entity hero;
         private Map map;
@@ -36,7 +32,6 @@ public class Level implements Screen
          */
         public Level(PrisonBreak g, String level)
         {
-                myGame = g;
                 myGame = g;
                 hud = new Ui();
                 Gdx.input.setInputProcessor(hud);
@@ -65,12 +60,12 @@ public class Level implements Screen
             
             map.render();
             hero.update(map,ai,x,y); 
-            map.isExit(hero.shape);
             
             for(Entity user: ai) {
                 user.render(map);
             }    
             hud.render();
+            map.isExit(hero.shape);
         }
         
         @Override
@@ -107,6 +102,7 @@ public class Level implements Screen
         }
         
         public void loadLevel(String level) {
+            ai = new ArrayList<Entity>();
             map = new Map(myGame.width, myGame.height,level);
             JSONParser parser = new JSONParser();
             try {
