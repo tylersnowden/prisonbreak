@@ -5,7 +5,6 @@ package org.spinaltap.prison;
  */
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import org.spinaltap.prison.PrisonBreak;
 
 public class DesktopPrisonBreak {
         public static void main (String[] args) {

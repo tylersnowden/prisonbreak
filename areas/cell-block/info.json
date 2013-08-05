@@ -29,6 +29,6 @@
          }
     ],
     "hot-spot" : [
-        { "x" : 5, "y" : 5, "key" : "move", "value" : "cell-block" }
+        
     ]
 }
