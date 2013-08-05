@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="Map" tilewidth="32" tileheight="32">
-  <image source="../../res/tileset.png" width="128" height="256"/>
+  <image source="../../res/tileset.png" width="256" height="256"/>
  </tileset>
- <tileset firstgid="33" name="Office" tilewidth="32" tileheight="32">
-  <image source="../../res/office.png" width="256" height="128"/>
+ <tileset firstgid="65" name="Office" tilewidth="32" tileheight="32">
+  <image source="../../res/office.png" width="256" height="256"/>
  </tileset>
  <layer name="Background" width="20" height="15">
   <data encoding="base64" compression="zlib">
-   eJzjY2Bg4ETDYkSKoWNeIOYCYjY0jEuMmQDmQtPLSmXzqO0+apgnAMT8SPoEgVgUi5gICe5jIgKT4t/hYB4PAyTN8mMxRxAqJ0KCecT6YaSZBwtncjAobmyB2A4aJ9xADABJsAas
+   eJyTYmBgEETDWkSKoWNJIBYCYks0jEuMmQAWgmIuKOaE0shiXEhipJrHNQjNkwFiaSR9ikCsiUVMhQT3MRGBSfHvcDBPhAGSZnWwmGMElVMhwTxYujbBImfFgEjzxJpHbJhQ2zxQuBiSiXWQzAKFoTADZr4nFccCcRwSHwBn5BLl
   </data>
  </layer>
  <layer name="Items" width="20" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYKA+UCRS3hCIjfDQMKBJwDyYvCUQW+GhSQVKQKyMA6uQYZ4WEGsDsS4Q60GxPlRMhwzzYMAUiM2g2JwCc6gNjMmUwwWsyZQbBaQDVSBWw8MfKAAAncQIsw==
+   eJxjYKA+cITSiUCchIUNkw8E4iA8NAx4QulMIM7CwobJRwJxFB4aHRQCcREWNgw4AbEzDuyCxTxCwAuIvYHYF4j9oNgfKuZDhnkwEArEYVAcToE51AbBZMrhAtFkyo0E4ArEbnj4wwUAACooE6U=
   </data>
  </layer>
  <layer name="Doors" width="20" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFQwWIQ/EoGAUjFQAAjwwALw==
+   eJxjYBgFQwVoQ/EoGAUjFQAAB2sAVw==
   </data>
  </layer>
  <layer name="Borders" width="20" height="15" visible="0">
   <data encoding="base64" compression="zlib">
-   eJzjYGBg4KABRgbY+OSahc08XGLY1AwG83D5j5AYoXAh1n241FLbPHxqSfEHLc3DFVekmkeKnUPBPFzpkBzzqFGOwPgAF3cDcQ==
+   eJzjYWBg4BnkGAYIyREC6Hrw6aWlecT4D5dabGpIdR8utdQ2D59aUvxBS/NwxdVAm0eKnehsbHxSzKNVXqWGeQBTwAad
   </data>
  </layer>
 </map>
