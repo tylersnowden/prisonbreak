@@ -9,7 +9,7 @@
 			"width" : 30,
 			"height" : 40,
 			"x" : 2,
-			"y" : 12,
+			"y" : 10,
 			"direction" : 1
     },
     "ai": [
@@ -19,8 +19,8 @@
 			"rows" : 4,
 			"width" : 30,
 			"height" : 40,
-			"x" : 6,
-			"y" : 12,
+			"x" : 7,
+			"y" : 11,
 			"direction" : 1,
                     "action" : [
                                         "DANIEL:\nDon't just stand here. The warden wants to talk to you.",
@@ -42,7 +42,7 @@
          }
     ],
     "hot-spot" : [
-        { "x" : 16, "y" : -1, "key" : "move", "value" : "cell-block" },
-        { "x" : 17, "y" : -1, "key" : "move", "value" : "cell-block" }
+        { "x" : 16, "y" : 0, "key" : "move", "value" : "cell-block" },
+        { "x" : 17, "y" : 0, "key" : "move", "value" : "cell-block" }
     ]
 }
