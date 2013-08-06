@@ -7,7 +7,7 @@
 			"cols" : 4,
 			"rows" : 4,
 			"width" : 30,
-			"height" : 40,
+			"height" : 30,
 			"x" : 2,
 			"y" : 10,
 			"direction" : 1
@@ -18,7 +18,7 @@
 			"cols" : 4,
 			"rows" : 4,
 			"width" : 30,
-			"height" : 40,
+			"height" : 20,
 			"x" : 7,
 			"y" : 11,
 			"direction" : 1,
