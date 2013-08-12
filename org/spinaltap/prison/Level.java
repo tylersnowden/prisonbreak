@@ -59,11 +59,11 @@ public class Level implements Screen
             }
             
             map.render();
-            hero.update(map,ai,x,y); 
-            
+
             for(Entity user: ai) {
                 user.render(map);
             }    
+            hero.update(map,ai,x,y);
             hud.render();
             map.isExit(hero.shape);
         }
